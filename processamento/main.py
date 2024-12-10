@@ -41,3 +41,10 @@ stores_transforme = Transformer(stores.data)
 #transforme: unificando os dados 
 orders_transforme.join(payments_transforme.data, on_column='payment_order_id')
 orders_transforme.show_data()
+
+
+
+"""
+Carregando os dados
+"""
+

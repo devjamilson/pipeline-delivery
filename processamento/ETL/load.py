@@ -28,16 +28,3 @@ class Loader:
             print(f"Erro ao salvar os dados como XLSX: {e}")
 
 
-if __name__ == "__main__":
-    from pyspark.sql import SparkSession
-
-    spark = SparkSession.builder.appName("LoaderExample").getOrCreate()
-
-    file_path = "/home/jamilsonfs/pipeline/dados/channels.csv"
-    data = spark.read.csv(file_path, header=True, inferSchema=True)
-
-    loader = Loader(data)
-
-    loader.save_as_parquet("/home/jamilsonfs/pipeline/visualizacao/dados/parquet")
-    loader.save_as_csv("/home/jamilsonfs/pipeline/visualizacao/dados/csv")
-    loader.save_as_xlsx("/home/jamilsonfs/pipeline/visualizacao/dados/xlsx")
