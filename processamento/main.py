@@ -38,13 +38,19 @@ hubs_transforme = Transformer(hubs.data)
 orders_transforme = Transformer(orders.data)
 stores_transforme = Transformer(stores.data)
 
-#transforme: unificando os dados 
-orders_transforme.join(payments_transforme.data, on_column='payment_order_id')
-orders_transforme.show_data()
+#transforme: unificando os dados
 
+deliveries_transforme.join(drivers_transforme.data, on_column='driver_id')
+stores_transforme.join(hubs_transforme.data, on_column='hub_id')
+
+orders_transforme.join(payments_transforme.data, on_column='payment_order_id')
+orders_transforme.join(deliveries_transforme.data, on_column='delivery_order_id')
+orders_transforme.join(stores_transforme.data, on_column='store_id')
+orders_transforme.join(channels_transforme.data, on_column='channel_id')
 
 
 """
 Carregando os dados
 """
-
+orders_load = Loader(orders_transforme.data)
+orders_load.save_as_parquet('/home/jamilsonfs/pipeline/visualizacao/dados/pedidos')
